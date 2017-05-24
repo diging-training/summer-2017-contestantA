@@ -10,4 +10,19 @@ public class HomeController {
     public String home() {
         return "home";
     }
+    
+    @RequestMapping(value = "/manual")
+    public String manual() {
+        return "manual";
+    }
+    
+    @RequestMapping(value = "/automatic")
+    public String automatic() {
+        return "automatic";
+    }
+    
+    @RequestMapping(value = "/help")
+    public String help() {
+        return "help";
+    }
 }

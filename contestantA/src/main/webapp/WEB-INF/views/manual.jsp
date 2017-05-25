@@ -2,32 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML>
 
-<!-- <table id="pointsTable" border="1">
-	<tr>
-		<td>You</td>
-		<td>Other</td>
-	</tr>
-</table>
-<script type="text/javascript">
-
-  function addRow() {
-
-		var table = document.getElementById(pointsTable);
-
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-
-		var cell1 = row.insertCell(0);
-		cell1.innerHTML = Date();
-
-		var cell2 = row.insertCell(1);
-		cell2.innerHTML = rowCount + 1;
-
-	}
-</script> -->
-
-
-
 <html>
 <head>
 <title>HTTP Header Request Example</title>

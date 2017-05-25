@@ -2,6 +2,7 @@ package edu.asu.diging.contestantA.services;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -22,15 +23,41 @@ public class Play {
 	boolean won = false;
 	int current = -1;
 	Queue<String> rec;
+	ArrayList<String> playerOne;
+	ArrayList<String> playerTwo;
 	
-	public void getCurrentNumber(){
-		//
+	Play(){
+		playerOne = new ArrayList<String>();
+		playerTwo = new ArrayList<String>();
+		Random rand = new Random();
+		current = rand.nextInt(100);
 	}
-	public void getListOfANumbers(){
+	
+	public int getCurrentNumber(){
+		return current;
+	}
+	public int getHalfCurrentNumber(){
+		return current/2;
+	}
+	public ArrayList<String> getListOfANumbers(){
+		return playerOne;
 		
 	}
-	public void getListOfBNumbers(){
+	public ArrayList<String> getListOfBNumbers(){
+		return playerTwo;
 		
+	}
+	
+	public void setPlayerOne(String str){
+		playerOne.add(str);
+	}
+	
+	public void setPlayerTwo(String str){
+		playerTwo.add(str);
+	}
+	
+	public void setCurrent(String str){
+		current -= Integer.parseInt(str);
 	}
 	
 	public void toss(){
@@ -144,7 +171,21 @@ public class Play {
 	    logger.info("Received here topic: " + message);
 		System.out.println("Received topic: " + message);
 		rec.offer(message);
-		
+	}
+	
+//	@KafkaListener(id="test.listener.id", topics = "A")
+//	public void receiveAMessage(String message) {
+//	    logger.info("Received here topic: " + message);
+//		System.out.println("Received topic: " + message);
+//		playerOne.add(message);
+//	}
+	
+	@KafkaListener(id="test.listener.id2", topics = "B")
+	public void receiveBMessage(String message) {
+	    logger.info("Received here topic: " + message);
+		System.out.println("Received topic: " + message);
+		playerTwo.add(message);
+		setCurrent(message);
 	}
 	
 }

@@ -16,7 +16,7 @@ public class HomeController {
 
     @RequestMapping(value = "/")
     public String home() {
-    	tt.toss();
+//    	tt.toss();
         return "home";
     }
     

@@ -40,15 +40,19 @@
 	<table width="50%" border="1" align="center">
 		<tr bgcolor="#000066">
 			<th><font color="White">Player 1</font></th>
-			<th><font color="White">Player 2</font></th>
 		</tr>
-		<c:forEach items="${ game.getPlayerOne() }" var="myItem">
+		<c:forEach items="${ game.getListOfANumbers() }" var="myItem" >
 			<tr bgcolor="Silver">
 				<td><font color="red">-${ myItem }</font></td>
 
 			</tr>
 		</c:forEach>
-		<c:forEach items="${ game.getPlayerTwo() }" var="myItem2">
+		</table>
+		<table width="50%" border="1" align="center">
+		<tr bgcolor="#000066">
+			<th><font color="White">Player 2</font></th>
+		</tr>
+		<c:forEach items="${ game.getListOfBNumbers() }" var="myItem2">
 			<tr bgcolor="Silver">
 
 				<td><font color="red">-${ myItem2 }</font></td>
@@ -63,12 +67,11 @@
 		<hr style="margin-bottom: 25px;">
 		<p class="text-muted pull-left">
 		<p class="text-muted">
-		<form rm name='f' class="form-inline pull-left"</form>
-		<form action="<c:url value="/manual/" />" method="POST">
+		<form action="<c:url value="/manual" />" method="POST">
 			<input type="hidden" name="number" value="number" /> Enter a number
-			between 0 and ${game.getCurrentNumber()} /2: <input
+			between 0 and ${game.getHalfCurrentNumber()}: <input
 				placeholder="input" class="form-control input-sm" type="text"
-				id="submit" name="submit" />
+				id="userInput" name="userInput" />
 			<button class="btn btn-default btn-sm" type="submit" title="Manual">
 				<i> <!--  class="fa fa-sign-out" aria-hidden="true"> -->
 				</i> Manual

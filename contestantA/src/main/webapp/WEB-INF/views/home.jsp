@@ -14,14 +14,9 @@
 	<sec:authorize access="isAuthenticated()">
 		<p>Choose a game to play:</p>
 		<!-- <li role="presentation"> -->
-		<form action="<c:url value="/manual" />" method="POST">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<button class="btn btn-default btn-sm" type="submit" title="Manual">
-				<i> <!--  class="fa fa-sign-out" aria-hidden="true"> -->
-				</i> Manual
-			</button>
-		</form>
+		<a href="<c:url value="/manual" />" >Manual </a>
+			
+		
 		<!-- </li> -->
 		<p>
 		<p>

@@ -5,6 +5,7 @@
 
 <div class="jumbotron col-md-12">
 
+
 	<sec:authorize access="isAnonymous()">
 		<h1>Congratulations!</h1>
 		<p>You did it. This basic webapp is all set up now. Try to login
@@ -13,27 +14,27 @@
 	<sec:authorize access="isAuthenticated()">
 		<p>Choose a game to play:</p>
 		<!-- <li role="presentation"> -->
-			<form action="<c:url value="/manual" />" method="POST">
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
-				<button class="btn btn-default btn-sm" type="submit" title="Manual">
-					<i>
-						<!--  class="fa fa-sign-out" aria-hidden="true"> -->
-					</i> Manual
-				</button>
-			</form>
+		<form action="<c:url value="/manual" />" method="POST">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+			<button class="btn btn-default btn-sm" type="submit" title="Manual">
+				<i> <!--  class="fa fa-sign-out" aria-hidden="true"> -->
+				</i> Manual
+			</button>
+		</form>
 		<!-- </li> -->
-		<p><p>
-		<!-- <li role="presentation"> -->
-			<form action="<c:url value="/automatic" />" method="POST">
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
-				<button class="btn btn-default btn-sm" type="submit" title="Automatic">
-					<i>
-						<!--  class="fa fa-sign-out" aria-hidden="true"> -->
-					</i> Automatic
-				</button>
-			</form>
+		<p>
+		<p>
+			<!-- <li role="presentation"> -->
+		<form action="<c:url value="/automatic" />" method="POST">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+			<button class="btn btn-default btn-sm" type="submit"
+				title="Automatic">
+				<i> <!--  class="fa fa-sign-out" aria-hidden="true"> -->
+				</i> Automatic
+			</button>
+		</form>
 		<!-- </li> -->
 	</sec:authorize>
 </div>

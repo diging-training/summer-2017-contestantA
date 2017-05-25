@@ -35,20 +35,26 @@
 
 <body>
 	<h2>Whose turn is it?</h2>
-	<h2>The current number is: <%-- "${game.getCurrentNumber()}" --%></h2>
+	<h2>The current number is: ${game.getCurrentNumber()}</h2>
 
 	<table width="50%" border="1" align="center">
 		<tr bgcolor="#000066">
 			<th><font color="White">Player 1</font></th>
 			<th><font color="White">Player 2</font></th>
 		</tr>
-<%-- 		<c:forEach items="${ game.getPlayerOne() }" var="myItem" items="${ game.getPlayerTwo() }" var="myItem2">
- --%>			<tr bgcolor="Silver" >
-				<td><font color="red">-2<%-- -${ myItem } --%></font></td>
-				<td><font color="red">-10<%-- -${ myItem2 } --%></font></td>
+		<c:forEach items="${ game.getPlayerOne() }" var="myItem">
+			<tr bgcolor="Silver">
+				<td><font color="red">-${ myItem }</font></td>
+
 			</tr>
-<%-- 		</c:forEach>
- --%>
+		</c:forEach>
+		<c:forEach items="${ game.getPlayerTwo() }" var="myItem2">
+			<tr bgcolor="Silver">
+
+				<td><font color="red">-${ myItem2 }</font></td>
+			</tr>
+		</c:forEach>
+
 	</table>
 </html>
 
@@ -56,12 +62,17 @@
 	<div class="col-md-12">
 		<hr style="margin-bottom: 25px;">
 		<p class="text-muted pull-left">
-			<p class="text-muted"><fo rm name='f' class="form-inline pull-left"
-			action="<c:url value="/manual" />" method="POST">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" /> Enter a number between 0 and <%-- ${game.getCurrentNumber()} --%>/2: <input placeholder="input" class="form-control input-sm" type="text"
+		<p class="text-muted">
+		<form rm name='f' class="form-inline pull-left"</form>
+		<form action="<c:url value="/manual/" />" method="GET">
+			<input type="hidden" name="number" value="number" /> Enter a number
+			between 0 and ${game.getCurrentNumber()} /2: <input
+				placeholder="input" class="form-control input-sm" type="text"
 				id="submit" name="submit" />
-			<button type="submit" class="btn btn-default btn-sm">submit</button>
+			<button class="btn btn-default btn-sm" type="submit" title="Manual">
+				<i> <!--  class="fa fa-sign-out" aria-hidden="true"> -->
+				</i> Manual
+			</button>
 		</form>
 		</p>
 	</div>

@@ -64,7 +64,7 @@
 		<p class="text-muted pull-left">
 		<p class="text-muted">
 		<form rm name='f' class="form-inline pull-left"</form>
-		<form action="<c:url value="/manual/" />" method="GET">
+		<form action="<c:url value="/manual/" />" method="POST">
 			<input type="hidden" name="number" value="number" /> Enter a number
 			between 0 and ${game.getCurrentNumber()} /2: <input
 				placeholder="input" class="form-control input-sm" type="text"

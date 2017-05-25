@@ -35,20 +35,20 @@
 
 <body>
 	<h2>Whose turn is it?</h2>
-	<h2>The current number is: "${game.getCurrentNumber()}"</h2>
+	<h2>The current number is: <%-- "${game.getCurrentNumber()}" --%></h2>
 
-	<table width="100%" border="1" align="center">
-		<tr bgcolor="#949494">
-			<th>Player 1</th>
-			<th>Player 2</th>
+	<table width="50%" border="1" align="center">
+		<tr bgcolor="#000066">
+			<th><font color="White">Player 1</font></th>
+			<th><font color="White">Player 2</font></th>
 		</tr>
-		<c:forEach items="${ game.getPlayerOne() }" var="myItem" items="${ game.getPlayerTwo() }" var="myItem2">
-			<tr>
-				<td>-${ myItem }</td>
-				<td>-${ myItem2 }</td>
+<%-- 		<c:forEach items="${ game.getPlayerOne() }" var="myItem" items="${ game.getPlayerTwo() }" var="myItem2">
+ --%>			<tr bgcolor="Silver" >
+				<td><font color="red">-2<%-- -${ myItem } --%></font></td>
+				<td><font color="red">-10<%-- -${ myItem2 } --%></font></td>
 			</tr>
-		</c:forEach>
-
+<%-- 		</c:forEach>
+ --%>
 	</table>
 </html>
 
@@ -59,7 +59,7 @@
 			<p class="text-muted"><fo rm name='f' class="form-inline pull-left"
 			action="<c:url value="/manual" />" method="POST">
 			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" /> Enter a number between x and y: <input placeholder="input" class="form-control input-sm" type="text"
+				value="${_csrf.token}" /> Enter a number between 0 and <%-- ${game.getCurrentNumber()} --%>/2: <input placeholder="input" class="form-control input-sm" type="text"
 				id="submit" name="submit" />
 			<button type="submit" class="btn btn-default btn-sm">submit</button>
 		</form>

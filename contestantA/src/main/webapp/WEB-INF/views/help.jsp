@@ -1,1 +1,2 @@
-<p>help page</p>
+<p>How to Play:</p>
+The computer chooses a random number to start. Each player chooses a number to subtract from the current number. The number chosen by the player must be at least 1 and less than half of the current number. The player who reduces the current number to zero loses.

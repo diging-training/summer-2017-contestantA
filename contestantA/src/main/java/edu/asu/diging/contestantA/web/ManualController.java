@@ -10,13 +10,13 @@ import edu.asu.diging.contestantA.services.Player;
 @Controller
 public class ManualController {
 	
-	@Autowired
-	Play game;
+//	@Autowired
+//	Play game;
 
     
     @RequestMapping(value = "/manual")
     public String manual(ModelMap map) {
-    	map.addAttribute("game", game);
+//    	map.addAttribute("game", game);
         return "manual";
     }
     

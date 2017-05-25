@@ -1,4 +1,4 @@
-package edu.asu.diging.tutorial.spring.service;
+package edu.asu.diging.contestantA.services;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -34,25 +34,22 @@
 </head>
 
 <body>
-	<%-- <center> --%>
-	<h2>It's your turn!</h2>
+	<h2>Whose turn is it?</h2>
+	<h2>The current number is: "${game.getCurrentNumber()}"</h2>
 
 	<table width="100%" border="1" align="center">
 		<tr bgcolor="#949494">
 			<th>Player 1</th>
-			<th>Number</th>
 			<th>Player 2</th>
 		</tr>
-		<c:forEach items="${ game }" var="myItem">
+		<c:forEach items="${ game.getPlayerOne() }" var="myItem" items="${ game.getPlayerTwo() }" var="myItem2">
 			<tr>
-				<td>${ myItem }</td>
-				<td>${ myItem }</td>
-				<td>${ myItem }</td>
+				<td>-${ myItem }</td>
+				<td>-${ myItem2 }</td>
 			</tr>
 		</c:forEach>
 
 	</table>
-	<%-- </center> --%>
 </html>
 
 <div class="row">
@@ -63,7 +60,7 @@
 			action="<c:url value="/manual" />" method="POST">
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" /> Enter a number between x and y: <input placeholder="input" class="form-control input-sm" type="text"
-				id="username" name="username" />
+				id="submit" name="submit" />
 			<button type="submit" class="btn btn-default btn-sm">submit</button>
 		</form>
 		</p>

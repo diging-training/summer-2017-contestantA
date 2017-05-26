@@ -119,20 +119,5 @@ public class Play {
 		return num;
 	}
 
-	@KafkaListener(id = "test.listener.id", topics = "answer")
-	public void receiveMessage(String message) {
-		gamePlay(message);
-		playerTwo.add(message);
-		setCurrent(message);
-	}
 
-	@KafkaListener(id = "test.listener.toss", topics = "toss")
-	public void tossListener(String message) {
-		receiveToss(message);
-	}
-
-	@KafkaListener(id = "test.listener.tossWinner", topics = "tossWinner")
-	public void tossWinListener(String message) {
-		BStarts(message);
-	}
 }

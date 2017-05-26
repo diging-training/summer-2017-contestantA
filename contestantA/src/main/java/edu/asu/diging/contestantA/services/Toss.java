@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
-public class Encryption {
+public class Toss {
 	private String tossValue;
 	
 	public String beginToss()

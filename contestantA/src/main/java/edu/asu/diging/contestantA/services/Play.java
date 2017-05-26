@@ -22,10 +22,9 @@ public class Play {
 	private String tossValue;
 	boolean won = false;
 	int current = -1;
-	Queue<String> rec;
 	ArrayList<String> playerOne;
 	ArrayList<String> playerTwo;
-	Encryption encryption;
+	Toss toss;
 	
 	Play(){
 		playerOne = new ArrayList<String>();
@@ -61,54 +60,52 @@ public class Play {
 		current -= Integer.parseInt(str);
 	}
 	
-	public void toss(){
-		rec = new LinkedList<String>();
-		send.send("question", encryption.beginToss());
-		tossValue = encryption.getTossValue();
-		//change logic here
-		while(rec.size()==0){
-			System.out.println("Waiting ...."+rec.size());
-		}
-		System.out.println("Received the very first message");
-		String message = rec.poll();
+	public void sendToss()
+	{
+		send.send("question", toss.beginToss());
+		tossValue = toss.getTossValue();
+	}
+	
+	public void BStarts(String message)
+	{
+		started = true;
+		current = Integer.parseInt(message);
+		logicAndSend();
+	}
+	
+	public void AStarts()
+	{
+		current = logicAndSend();
+		started = true;
+	}
+	
+	public void receiveToss(String message)
+	{
 		int tossChoice = Integer.parseInt(message);
-		send.send("question", "Number Chosen for Toss: "+ tossValue);
-		// odd is 0
-		// even is 1
+		// odd is 0 & even is 1
 		if((tossChoice == 1 && Integer.parseInt(tossValue) % 2 == 0) || (tossChoice == 0 && Integer.parseInt(tossValue) % 2 == 1)){
 			// B Wins
-			System.out.println("B Won...");
-			send.send("question", "You won the toss!!! Start the game");
-			while(rec.size()==0){
-				System.out.println("Waiting ...."+rec.size());
-			}
-			message = rec.poll();
-			started = true;
-			current = Integer.parseInt(message);
-			int chosen = logicAndSend();
-			
 		}
-		else{
-			// A Wins
-			current = logicAndSend();
-			started = true;
-		}
-		//change logic here
-		while(current>0)
+		else
 		{
-			while(rec.size()==0)
-			{
-				System.out.println("Waiting ...."+rec.size());
-			}
-			message = rec.poll();
-			current -= Integer.parseInt(message);
-			if(current == 0){
-				break;
-			}
-			int chosen = logicAndSend();
+			// A Wins
+			AStarts();
 		}
-		
 	}
+	
+	public void gamePlay(String message)
+	{
+		current = current - Integer.parseInt(message);
+		if(current == 0)
+		{
+			//update UI here
+		}
+		else
+		{
+			logicAndSend();
+		}
+	}
+	
 	public int logic()
 	{
 		int choice;
@@ -141,17 +138,20 @@ public class Play {
 	
 	@KafkaListener(id="test.listener.id", topics = "answer")
 	public void receiveMessage(String message) {
-	    logger.info("Received here topic: " + message);
-		System.out.println("Received topic: " + message);
-		rec.offer(message);
+	    	gamePlay(message);
+	    	playerTwo.add(message);
+	    	setCurrent(message);
+	}
+
+	@KafkaListener(id="test.listener.toss", topics = "toss")
+	public void tossListener(String message)
+	{
+		receiveToss(message);
 	}
 	
-	@KafkaListener(id="test.listener.id2", topics = "B")
-	public void receiveBMessage(String message) {
-	    logger.info("Received here topic: " + message);
-		System.out.println("Received topic: " + message);
-		playerTwo.add(message);
-		setCurrent(message);
+	@KafkaListener(id="test.listener.tossWinner", topics = "tossWinner")
+	public void tossWinListener(String message)
+	{
+		BStarts(message);
 	}
-	
 }

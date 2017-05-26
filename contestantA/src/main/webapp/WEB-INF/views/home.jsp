@@ -3,9 +3,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-<div class="jumbotron col-md-12">
-
-
+<div>
 	<sec:authorize access="isAnonymous()">
 		<h1>Congratulations!</h1>
 		<p>You did it. This basic webapp is all set up now. Try to login
@@ -13,23 +11,8 @@
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
 		<p>Choose a game to play:</p>
-		<!-- <li role="presentation"> -->
-		<a href="<c:url value="/manual" />" >Manual </a>
-			
-		
-		<!-- </li> -->
+		<a href="<c:url value="/manual" />">Manual </a>
 		<p>
-		<p>
-			<!-- <li role="presentation"> -->
-		<form action="<c:url value="/automatic" />" method="POST">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<button class="btn btn-default btn-sm" type="submit"
-				title="Automatic">
-				<i> <!--  class="fa fa-sign-out" aria-hidden="true"> -->
-				</i> Automatic
-			</button>
-		</form>
-		<!-- </li> -->
+			<a href="<c:url value="/automatic" />">Automatic </a>
 	</sec:authorize>
 </div>

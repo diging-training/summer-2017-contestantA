@@ -4,9 +4,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+
 public class Toss {
 	private String tossValue;
-	
+	final static Logger logger = Logger.getLogger(Toss.class);
 	public String beginToss()
 	{
 		String tossValue;
@@ -24,7 +26,7 @@ public class Toss {
 			return sb.toString();
 			
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			logger.error("No algorithm found " + e.getStackTrace());
 		}
 		
 		return null;

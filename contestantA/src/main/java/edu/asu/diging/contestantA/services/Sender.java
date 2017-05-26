@@ -22,14 +22,12 @@ public class Sender {
 
 	      @Override
 	      public void onSuccess(SendResult<String, String> result) {
-	    	logger.info("sent message = " +message+ " with offset = "+result.getRecordMetadata().offset() );
-	        System.out.println("sent message = " +message+ " with offset = "+result.getRecordMetadata().offset() );
+	    	//logger.info("sent message = " +message+ " with offset = "+result.getRecordMetadata().offset() );
 	      }
 
 	      @Override
 	      public void onFailure(Throwable ex) {
 	    	logger.error("unable to send message = "+ message + ex);
-	        System.out.println("unable to send message = "+ message + ex);
 	      }
 	    });
 

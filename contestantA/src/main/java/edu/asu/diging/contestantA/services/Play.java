@@ -1,12 +1,7 @@
 package edu.asu.diging.contestantA.services;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Random;
-import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,12 +65,12 @@ public class Play {
 	{
 		started = true;
 		current = Integer.parseInt(message);
-		logicAndSend();
+		updateCurrentNumber();
 	}
 	
-	public void AStarts()
+	private void AStarts()
 	{
-		current = logicAndSend();
+		current = updateCurrentNumber();
 		started = true;
 	}
 	
@@ -102,11 +97,11 @@ public class Play {
 		}
 		else
 		{
-			logicAndSend();
+			updateCurrentNumber();
 		}
 	}
 	
-	public int logic()
+	private int calculateChoice()
 	{
 		int choice;
 		if(!started)
@@ -122,9 +117,9 @@ public class Play {
 
 		}
 	}
-	public int logicAndSend()
+	private int updateCurrentNumber()
 	{
-		int num = logic();
+		int num = calculateChoice();
 		current = current - num;
 		if(current == 0){
 			//create call to UI to update to "I won"

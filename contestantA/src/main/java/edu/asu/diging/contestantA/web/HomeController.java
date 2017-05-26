@@ -10,8 +10,6 @@ import edu.asu.diging.contestantA.services.Play;
 
 @Controller
 public class HomeController {
-	@Autowired
-	private Play tt;
 	
 
     @RequestMapping(value = "/")

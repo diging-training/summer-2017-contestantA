@@ -25,6 +25,7 @@ public class Play {
 	Queue<String> rec;
 	ArrayList<String> playerOne;
 	ArrayList<String> playerTwo;
+	Encryption encryption;
 	
 	Play(){
 		playerOne = new ArrayList<String>();
@@ -62,21 +63,9 @@ public class Play {
 	
 	public void toss(){
 		rec = new LinkedList<String>();
-		Random rand = new Random();
-		tossValue = Integer.toString((int)rand.nextInt(10000) + 0);
-		//tossValue = "3";
-		try {			
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			byte[] array = md.digest(tossValue.getBytes());
-			StringBuffer sb = new StringBuffer();
-			for (int i = 0; i < array.length; ++i)
-		          sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
-			send.send("question", sb.toString());
-			
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-		
+		send.send("question", encryption.beginToss());
+		tossValue = encryption.getTossValue();
+		//change logic here
 		while(rec.size()==0){
 			System.out.println("Waiting ...."+rec.size());
 		}
@@ -97,70 +86,54 @@ public class Play {
 			started = true;
 			current = Integer.parseInt(message);
 			int chosen = logicAndSend();
-			send.send("question", "I Choose: "+ Integer.toString(chosen));
-			send.send("question", "Current: "+ Integer.toString(current));
-			send.send("question", "Choose from 1 to "+(int)Math.round(current/2));
 			
 		}
 		else{
 			// A Wins
-			System.out.println("A Won...");
-			send.send("question", "I won the toss!!! Wait for me");
 			current = logicAndSend();
-			send.send("question", "I Choose: "+ Integer.toString(current));
-			send.send("question", "Current: "+ Integer.toString(current));
-			send.send("question", "Choose from 1 to "+(int)Math.round(current/2));
 			started = true;
 		}
-		System.out.println("Current is : "+current);
-		Scanner s = new Scanner(System.in);
-		System.out.println("ok??");
-		//s.nextLine();
-		
-		while(current>0){
-			while(rec.size()==0){
+		//change logic here
+		while(current>0)
+		{
+			while(rec.size()==0)
+			{
 				System.out.println("Waiting ...."+rec.size());
 			}
 			message = rec.poll();
 			current -= Integer.parseInt(message);
 			if(current == 0){
-				System.out.println("B won the game");
-				send.send("question","You Won thank you for Playing!!!!");
 				break;
 			}
 			int chosen = logicAndSend();
-			if(current>0){
-			send.send("question", "I Choose: "+ Integer.toString(chosen));
-			send.send("question", "Current: "+ Integer.toString(current));
-			send.send("question", "Choose from 1 to "+(int)Math.round(current/2));
-			}
 		}
 		
 	}
-	public int logic(){
-		System.out.println("In Logic");
-		Scanner s = new Scanner(System.in);
-		//System.out.println("Enter your choice");
-		//int choice = Integer.parseInt(s.nextLine());
+	public int logic()
+	{
 		int choice;
 		if(!started)
-			return 55;
-		else
-			choice = Math.max(1,(int)Math.round(current/2));
-		return choice;
-	}
-	public int logicAndSend(){
-		System.out.println("In logic and send");
-		int num = logic();
-		current -= num;
-		if(current == 0){
-			// user wins
-			System.out.println("A won the game");
-			send.send("question",Integer.toString(num));
-			send.send("question","I Won thank you for Playing!!!!");
+		{
+			Random rand = new Random();
+			choice = (int)rand.nextInt(100) + 50; 
+			return choice;
 		}
-		else{
-			System.out.println("Game in progress");
+		else
+		{
+			choice = Math.max(1,(int)Math.round(current/2));
+			return choice;
+
+		}
+	}
+	public int logicAndSend()
+	{
+		int num = logic();
+		current = current - num;
+		if(current == 0){
+			//create call to UI to update to "I won"
+		}
+		else
+		{
 			send.send("question",Integer.toString(num));
 		}
 		return num;
@@ -172,13 +145,6 @@ public class Play {
 		System.out.println("Received topic: " + message);
 		rec.offer(message);
 	}
-	
-//	@KafkaListener(id="test.listener.id", topics = "A")
-//	public void receiveAMessage(String message) {
-//	    logger.info("Received here topic: " + message);
-//		System.out.println("Received topic: " + message);
-//		playerOne.add(message);
-//	}
 	
 	@KafkaListener(id="test.listener.id2", topics = "B")
 	public void receiveBMessage(String message) {

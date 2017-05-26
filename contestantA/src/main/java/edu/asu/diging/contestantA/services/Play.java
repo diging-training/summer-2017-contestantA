@@ -20,6 +20,14 @@ public class Play {
 	ArrayList<String> playerTwo;
 	boolean tossOver = false;
 	
+	public boolean isTossOver() {
+		return tossOver;
+	}
+
+	public void setTossOver(boolean tossOver) {
+		this.tossOver = tossOver;
+	}
+
 	@Autowired
 	Toss toss;
 
@@ -28,7 +36,10 @@ public class Play {
 		playerTwo = new ArrayList<String>();
 		Random rand = new Random();
 		current = rand.nextInt(100);
+		tossOver = false;
 	}
+	
+	
 
 	public int getCurrentNumber() {
 		return current;

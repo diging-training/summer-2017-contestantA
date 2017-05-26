@@ -8,32 +8,41 @@
 </head>
 
 <body>
-	<h2>Whose turn is it?</h2>
-	<h2>The current number is: ${game.getCurrentNumber()}</h2>
+	<c:choose>
+		<c:when test="${not game.tossOver}">
+			<h2>Waiting for opponent...</h2>
+			<h2>
+				Click <a href="<c:url value="/manual" />">here </a>to check status.
+			</h2>
+			<br />
+		</c:when>
+		<c:otherwise>
+			<h2>Whose turn is it?</h2>
+			<h2>The current number is: ${game.getCurrentNumber()}</h2>
 
-	<table width="50%" border="1" align="center">
-		<tr bgcolor="#000066">
-			<th><font color="White">Player 1</font></th>
-		</tr>
-		<c:forEach items="${ game.getListOfANumbers() }" var="myItem" >
-			<tr bgcolor="Silver">
-				<td><font color="red">-${ myItem }</font></td>
+			<table width="50%" border="1" align="center">
+				<tr bgcolor="#000066">
+					<th><font color="White">Player 1</font></th>
+				</tr>
+				<c:forEach items="${ game.getListOfANumbers() }" var="myItem">
+					<tr bgcolor="Silver">
+						<td><font color="red">-${ myItem }</font></td>
 
-			</tr>
-		</c:forEach>
-		</table>
-		<table width="50%" border="1" align="center">
-		<tr bgcolor="#000066">
-			<th><font color="White">Player 2</font></th>
-		</tr>
-		<c:forEach items="${ game.getListOfBNumbers() }" var="myItem2">
-			<tr bgcolor="Silver">
+					</tr>
+				</c:forEach>
+			</table>
+			<table width="50%" border="1" align="center">
+				<tr bgcolor="#000066">
+					<th><font color="White">Player 2</font></th>
+				</tr>
+				<c:forEach items="${ game.getListOfBNumbers() }" var="myItem2">
+					<tr bgcolor="Silver">
 
-				<td><font color="red">-${ myItem2 }</font></td>
-			</tr>
-		</c:forEach>
+						<td><font color="red">-${ myItem2 }</font></td>
+					</tr>
+				</c:forEach>
 
-	</table>
+			</table>
 </html>
 
 <div class="row">
@@ -54,3 +63,7 @@
 		</p>
 	</div>
 </div>
+<br />
+</c:otherwise>
+</c:choose>
+

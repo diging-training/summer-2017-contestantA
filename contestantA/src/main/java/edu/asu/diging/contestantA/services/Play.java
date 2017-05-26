@@ -18,6 +18,9 @@ public class Play {
 	int current = -1;
 	ArrayList<String> playerOne;
 	ArrayList<String> playerTwo;
+	boolean tossOver = false;
+	
+	@Autowired
 	Toss toss;
 
 	Play() {
@@ -58,7 +61,7 @@ public class Play {
 	}
 
 	public void sendToss() {
-		send.send("question", toss.beginToss());
+		send.send("toss", "A_"+toss.beginToss());
 		tossValue = toss.getTossValue();
 	}
 
@@ -72,19 +75,34 @@ public class Play {
 		current = updateCurrentNumber();
 		started = true;
 	}
-
+	private void sendTossValue(){
+		send.send("toss", "A_"+tossValue.toString());
+	}
+	private void sendTossResult(String winner){
+		send.send("toss", winner);
+	}
 	public void receiveToss(String message) {
 		int tossChoice = Integer.parseInt(message);
 		// odd is 0 & even is 1
+		
+		sendTossValue();
+		
 		if ((tossChoice == 1 && Integer.parseInt(tossValue) % 2 == 0)
 				|| (tossChoice == 0 && Integer.parseInt(tossValue) % 2 == 1)) {
 			// B Wins
+			sendTossResult("A_B");
+			// recevier handles next
+			tossOver = true;
+			
 		} else {
 			// A Wins
+			sendTossResult("A_A");
+			tossOver = true;
 			AStarts();
 		}
+		
 	}
-
+	
 	public void gamePlay(String message) {
 		current = current - Integer.parseInt(message);
 		if (current == 0) {

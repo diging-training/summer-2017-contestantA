@@ -44,7 +44,8 @@ public class ReceiverConfig {
 		return factory;
 	}
 
-	/*
-	 * @Bean public Receiver receiver() { return new Receiver(); }
-	 */
+	
+	  @Bean 
+	  public Listener receiver() { return new Listener(); }
+	 
 }

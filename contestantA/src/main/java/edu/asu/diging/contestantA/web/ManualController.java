@@ -14,18 +14,18 @@ import edu.asu.diging.contestantA.services.Sender;
 
 @Controller
 public class ManualController {
-	@Autowired
-	private Play tt;
+	
 	
 	@Autowired
 	Play game;
 	
 	@Autowired
 	Sender message;
-	
 	@RequestMapping(value = "/manual")
     public String manual(ModelMap map) {
     	map.addAttribute("game", game);
+    	// toss needs to done
+    	game.sendToss();
        return "manual";
     }
 

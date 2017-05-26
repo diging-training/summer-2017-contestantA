@@ -5,7 +5,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Toss {
 	private String tossValue;
 	final static Logger logger = Logger.getLogger(Toss.class);
